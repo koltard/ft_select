@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 08:30:52 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/22 08:44:42 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 12:56:27 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		init_termcaps(void)
 	value = 0;
 	if (!(term = get_ttyname()))
 	{
-		ft_putendl_fd("Terminal name not found\n", STDERR_FILENO);
+		ft_putendl_fd("Terminal name not found", STDERR_FILENO);
 		return (0);
 	}
 	value = tgetent(buf, term);
@@ -48,7 +48,7 @@ int		init_termcaps(void)
 	}
 	if (value < 0)
 	{
-		ft_putendl_fd("Could not access the termcap database\n", STDERR_FILENO);
+		ft_putendl_fd("Could not access the termcap database", STDERR_FILENO);
 		return (0);
 	}
 	return (1);

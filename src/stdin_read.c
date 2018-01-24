@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:36:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 10:50:39 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 10:58:55 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static int	escape_rmode(char *buf, t_content *content)
 			go_left(content);
 		underline(1, content);
 		if (buf[2] == '3')
-			delete_elm(content);
+			if (!(delete_elm(content)))
+				return (0);
 	}
 	return (1);
 }
@@ -78,7 +79,7 @@ static int	normal_rmode(char buf, t_content *content)
 		return (0);
 	}
 	if (buf == 26)//JOB MUST BE HANDLED CORRECTLY
-		kill(0, SIGTSTP);
+		;
 	if (buf == 10)
 		return (0);
 	if (buf == 32)
@@ -92,7 +93,7 @@ static int	normal_rmode(char buf, t_content *content)
 void		select_readtype(t_content *content)
 {
 	int		ret;
-	char	buf[4];
+	char	buf[8];
 
 	while ((ret = read(STDIN_FILENO, buf, 3)))
 	{
@@ -106,7 +107,8 @@ void		select_readtype(t_content *content)
 			if (!(normal_rmode(buf[0], content)))
 				break ;
 		}
-		ft_bzero(&buf, 4);
+		ft_bzero(&buf, 8);
 	}
+	ft_bzero(&buf, 8);
 	tputs(tgetstr("me", NULL), 0, ft_putchar);
 }
