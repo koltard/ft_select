@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:36:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 07:55:06 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 10:50:39 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ void		underline(int check, t_content *content)
 	tputs(tgoto(tgetstr("cm", NULL), content->x, content->y), 0, ft_putchar);
 }
 
+static int	delete_elm(t_content *content)
+{
+	char	*tmp;
+
+	tmp = content->current[content->index];
+	if (ft_tabchr(content->select, tmp))
+		content->select = delete_tab(content->select, tmp);
+	content->current = delete_tab(content->current, tmp);
+	content->len--;
+	if (content->len == 0)	
+		return (0);
+	if (content->len == content->index && content->index != 0)
+		go_up(content);
+	display(tgetnum("co"), tgetnum("li"), content);
+	return (1);
+}
+
 static int	escape_rmode(char *buf, t_content *content)
 {
 	if (buf[1] == '[')
@@ -39,19 +56,9 @@ static int	escape_rmode(char *buf, t_content *content)
 		if (buf[2] == 'D' && content->len > 1)
 			go_left(content);
 		underline(1, content);
-		if (buf[2] == '3' && buf[3] == '4')
-			;//DO CURRENT DEL (PRINTING IS SHITTY)
+		if (buf[2] == '3')
+			delete_elm(content);
 	}
-	return (1);
-}
-
-static int	delete_elm(t_content *content)
-{
-	if (!(content->current = delete_tab(content->current,
-					content->current[content->index])))
-		return (0);
-	content->len--;
-	display(tgetnum("co"), tgetnum("li"), content);
 	return (1);
 }
 

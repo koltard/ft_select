@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 09:39:54 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 08:08:51 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 10:22:05 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static int	get_last_col(t_content *content)
 	i = 0;
 	total = 0;
 	tmp = content->current;
-	if (content->y == 0)
+	if (content->y == 0 && tgetnum("li") > content->len)
+		content->y = content->len - 1;
+	else if (content->y == 0)
 		content->y = tgetnum("li") - 1;
 	else
 		content->y--;
@@ -65,7 +67,7 @@ void		go_right(t_content *content)
 	if (content->index + tgetnum("li") > content->len - 1)
 	{
 		content->x = 0;
-		if (content->y == tgetnum("li") - 1)
+		if (content->y == tgetnum("li") - 1 || content->y == content->len - 1)
 			content->y = 0;
 		else
 			content->y++;
