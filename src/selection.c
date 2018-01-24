@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 16:06:23 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 10:35:56 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 15:48:12 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	**cpy_av(char **str, int len)
 	int		i;
 
 	i = -1;
-	if (!(new = (char **)malloc(sizeof(char *) * len + 1)))
+	if (!(new = (char **)malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
 	while (str[++i])
 		new[i] = ft_strdup(str[i]);

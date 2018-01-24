@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/01/24 15:11:45 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/01/24 15:43:05 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,19 @@ INC += -I $(INCLUDES)
 PATHFS = ./src/
 
 # flags
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Wextra
+
+ifneq ($(NOERR),yes)
+FLAGS += -Werror
+endif
+
+ifeq ($(DEV),yes)
+FLAGS += -g
+endif
+
+ifeq ($(SAN),yes)
+FLAGS += -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
+endif
 
 # termcap linker
 TERMS = -ltermcap
@@ -50,7 +62,7 @@ $(NAME) : makelib $(OBJ)
 		@echo "\033[33m [$@] > compiled\033[0m"
 
 makelib :
-		@make -C ./libft
+		@make -C $(LIBINC) NOERR=$(NOERR) DEV=$(DEV) SAN=$(SAN)
 
 clean : cleanlib
 		@/bin/rm -rf $(OBJ)

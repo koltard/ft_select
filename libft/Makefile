@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/24 17:49:45 by kyazdani          #+#    #+#              #
-#    Updated: 2018/01/24 15:05:03 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/01/24 15:44:12 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,20 @@ PATHPRINTF = srcs/printf/
 PATHLIBFT = srcs/
 INCLUDES = includes/
 INC += -I $(INCLUDES)
-FLAGS = -Wall -Werror -Wextra
+LFLAGS = -Wall -Wextra
+
+ifneq ($(NOERR),yes)
+LFLAGS += -Werror
+endif
+
+ifeq ($(DEV),yes)
+LFLAGS += -g
+endif
+
+ifeq ($(SAN),yes)
+LFLAGS += -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
+endif
+
 AR = ar rc
 OBJ = $(addprefix $(PATHPRINTF), $(SRC:%.c=%.o))
 LIBOBJ = $(addprefix $(PATHLIBFT), $(LIBSRC:%.c=%.o))
@@ -57,7 +70,7 @@ print :
 	@echo "\033[34m[\c"
 
 %.o:%.c $(INCLUDES)
-	@$(CC) $(FLAGS) $(INC) -o $@ -c $<
+	@$(CC) $(LFLAGS) $(INC) -o $@ -c $<
 	@echo ">\c"
 
 clean : 
