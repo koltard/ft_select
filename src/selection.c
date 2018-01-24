@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 16:06:23 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 15:48:12 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 18:29:24 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**delete_tab(char **tabl, char *str)
 	j = 0;
 	while (tabl[++i])
 	{
-		if (ft_strequ(tabl[i], str))
+		if (ft_strequ(tabl[i], str) && j == i)
 			free(tabl[i]);
 		else
 		{

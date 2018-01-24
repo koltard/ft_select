@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 08:30:52 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 12:56:27 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 18:21:56 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ char	*get_ttyname(void)
 {
 	char	*tty;
 
+	tty = NULL;
+	if (!isatty(STDIN_FILENO))
+		return (0);
 	if (!(tty = getenv("TERM")))
-	{
-		if (isatty(ttyslot()))
-			tty = ttyname(ttyslot());
-		else
-			return (NULL);
-	}
+		return ("xterm-256color");
 	return (tty);
 }
 
@@ -37,7 +35,7 @@ int		init_termcaps(void)
 	value = 0;
 	if (!(term = get_ttyname()))
 	{
-		ft_putendl_fd("Terminal name not found", STDERR_FILENO);
+		ft_putendl("error: Stdin is not a tty");
 		return (0);
 	}
 	value = tgetent(buf, term);
