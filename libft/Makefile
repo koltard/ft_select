@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/24 17:49:45 by kyazdani          #+#    #+#              #
-#    Updated: 2018/01/24 15:44:12 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/01/24 16:24:33 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ LIBSRC = ft_strlen.c ft_strcspn.c ft_strdup.c ft_strndup.c ft_strcpy.c \
 	ft_putendl.c ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_tablen.c \
 	ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c ft_lstdelone.c ft_freetab.c \
 	ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_strstrchr.c ft_getopt.c\
-	ft_lstmap.c ft_lst_push_back.c ft_lst_push_front.c ft_lst_count.c 
+	ft_lstmap.c ft_lst_push_back.c ft_lst_push_front.c ft_lst_count.c \
+	ft_inputchar.c
 
 PATHPRINTF = srcs/printf/
 PATHLIBFT = srcs/

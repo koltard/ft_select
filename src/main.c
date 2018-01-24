@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 14:37:37 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 16:25:30 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ int		main(int ac, char **av)
 	init_content(&content, ac - 1);
 	content.current = cpy_av(&av[1], ac - 1);
 	display(tgetnum("co"), tgetnum("li"), &content);
-	tputs(tgetstr("vi", NULL), 0, ft_putchar);
+	tputs(tgetstr("vi", NULL), 0, &ft_inputchar);
 	underline(1, &content);
 	select_readtype(&content);
-	tputs(tgetstr("ve", NULL), 0, ft_putchar);
-	tputs(tgetstr("cl", NULL), 0, ft_putchar);
+	tputs(tgetstr("ve", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
 	if (content.select && print_tab(content.select))
 		ft_freetab(content.select);
 	ft_freetab(content.current);

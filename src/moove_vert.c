@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 07:32:54 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 08:11:02 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:04:13 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void		go_down(t_content *content)
 		else
 			content->y++;
 	}
-	tputs(tgoto(tgetstr("cm", NULL), content->x, content->y), 0, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), content->x, content->y), 0, &ft_inputchar);
 }
 
 void			go_up(t_content *content)
@@ -108,5 +108,5 @@ void			go_up(t_content *content)
 		content->y--;
 		content->index--;
 	}
-	tputs(tgoto(tgetstr("cm", NULL), content->x, content->y), 0, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), content->x, content->y), 0, &ft_inputchar);
 }

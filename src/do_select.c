@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 13:49:38 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 07:56:40 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:02:48 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	put_color(t_content *content, int check)
 {
 	if (check)
-		tputs(tgetstr("mr", NULL), 0, ft_putchar);
+		tputs(tgetstr("mr", NULL), 0, &ft_inputchar);
 	else
-		tputs(tgetstr("me", NULL), 0, ft_putchar);
+		tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	ft_printf_fd(STDIN_FILENO, "%s", content->current[content->index]);
-	tputs(tgoto(tgetstr("cm", NULL), content->x, content->y), 0, ft_putchar);
-	tputs(tgetstr("me", NULL), 0, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), content->x, content->y), 0, &ft_inputchar);
+	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	go_down(content);
 	underline(1, content);
 }

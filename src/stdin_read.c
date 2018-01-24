@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:36:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 10:58:55 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:06:04 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void		underline(int check, t_content *content)
 {
 	if (ft_tabchr(content->select, content->current[content->index]))
-		tputs(tgetstr("mr", NULL), 0, ft_putchar);
+		tputs(tgetstr("mr", NULL), 0, &ft_inputchar);
 	if (check)
-		tputs(tgetstr("us", NULL), 0, ft_putchar);
+		tputs(tgetstr("us", NULL), 0, &ft_inputchar);
 	else
-		tputs(tgetstr("ue", NULL), 0, ft_putchar);
+		tputs(tgetstr("ue", NULL), 0, &ft_inputchar);
 	ft_putstr_fd(content->current[content->index], STDIN_FILENO);
-	tputs(tgetstr("me", NULL), 0, ft_putchar);
-	tputs(tgoto(tgetstr("cm", NULL), content->x, content->y), 0, ft_putchar);
+	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
+	tputs(tgoto(tgetstr("cm", NULL), content->x, content->y), 0, &ft_inputchar);
 }
 
 static int	delete_elm(t_content *content)
@@ -110,5 +110,5 @@ void		select_readtype(t_content *content)
 		ft_bzero(&buf, 8);
 	}
 	ft_bzero(&buf, 8);
-	tputs(tgetstr("me", NULL), 0, ft_putchar);
+	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 }

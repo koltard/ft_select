@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 08:44:42 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 15:25:36 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 16:24:09 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ int					ft_getopt(int ac, char *const av[], const char *optstring);
 void				reset_ft_opt(void);
 char				**ft_addstr_tab(char **array, char *str);
 void				ft_freetab(char **array);
+int					ft_inputchar(int c);
 
 #endif
