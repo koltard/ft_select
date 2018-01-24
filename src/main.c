@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/23 17:21:10 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 08:14:05 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	print_tab(char **str)
 	i = -1;
 	while (str[++i])
 		ft_printf("%s ", str[i]);
-	write(1, "\n", 1);
+	if (str[0])
+		write(1, "\n", 1);
 }
 
 void	init_content(t_content *content, int ac)
@@ -45,7 +46,7 @@ int		main(int ac, char **av)
 	ft_cfmakeraw(&my_state);
 	init_content(&content, ac - 1);
 	content.current = cpy_av(&av[1], ac - 1);
-	display(tgetnum("co"), tgetnum("li"), ac - 1, content.current);
+	display(tgetnum("co"), tgetnum("li"), &content);
 	tputs(tgetstr("vi", NULL), 0, ft_putchar);
 	underline(1, &content);
 	select_readtype(&content);

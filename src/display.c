@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 11:40:53 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/23 17:02:30 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 07:57:04 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	size_left(int co, int li, int ac, char **av)
 	return (co - line_max);
 }
 
-static void	moove_print(int li, int len, char **av)
+static void	moove_print(int li, int len, char **tmp, char **select)
 {
 	int		i;
 	int		len_col;
@@ -59,36 +59,48 @@ static void	moove_print(int li, int len, char **av)
 	while (len > 0)
 	{
 		old_len = len_tot;
-		len_col = count_max_len(av, li);
+		len_col = count_max_len(tmp, li);
 		len_tot += len_col + 4;
 		i = 0;
-		while (i < li && av[i])
+		while (i < li && tmp[i])
 		{
-			ft_printf_fd(STDIN_FILENO, "%s", av[i]);
+			if (ft_tabchr(select, tmp[i]))
+				tputs(tgetstr("mr", NULL), 0, ft_putchar);
+			ft_printf_fd(STDIN_FILENO, "%s", tmp[i]);
+			tputs(tgetstr("me", NULL), 0, ft_putchar);
 			i++;
 			tputs(tgoto(tgetstr("cm", NULL), old_len, i), 0, ft_putchar);
 		}
 		tputs(tgoto(tgetstr("cm", NULL), len_tot, 0), 0, ft_putchar);
-		len = len - li;
-		av = av + i;
+		len -= li;
+		tmp = tmp + i;
 	}
 }
 
-void		display(int co, int li, int len, char **av)
+void		display(int co, int li, t_content *content)
 {
 	int		i;
 	int		total;
 
 	i = -1;
-	total = size_left(co, li, len, av);
+	total = size_left(co, li, content->len, content->current);
 	tputs(tgetstr("me", NULL), 0, ft_putchar);
 	tputs(tgetstr("cl", NULL), 0, ft_putchar);
-	if (len < li)
-		while (++i < len)
-			ft_printf_fd(STDIN_FILENO, "%s\n", av[i]);
+	if (content->len < li)
+	{
+		while (++i < content->len)
+		{
+			if (ft_tabchr(content->select, content->current[i]))
+				tputs(tgetstr("mr", NULL), 0, ft_putchar);
+			ft_printf_fd(STDIN_FILENO, "%s\n", content->current[i]);
+			tputs(tgetstr("me", NULL), 0, ft_putchar);
+		}
+	}
 	else if (total >= 0)
-		moove_print(li, len, av);
+		moove_print(li, content->len, content->current, content->select);
 	else
 		ft_putendl_fd("\033[31mScreen size too small\033[0m", STDERR_FILENO);
 	tputs(tgetstr("ho", NULL), 0, ft_putchar);
+	tputs(tgoto(tgetstr("cm", NULL), content->x, content->y), 0, ft_putchar);
+	underline(1, content);
 }

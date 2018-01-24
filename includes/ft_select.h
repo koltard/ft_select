@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:20:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/23 17:28:04 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 07:36:34 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	go_left(t_content *content);
 void	go_right(t_content *content);
 void	select_readtype(t_content *content);
 int		handle_size(void);
-void	display(int co, int li, int len, char **av);
+void	display(int co, int li, t_content *content);
 int		count_max_len(char **tabl, int li);
 void	do_select(t_content *content);
 void	underline(int check, t_content *content);
