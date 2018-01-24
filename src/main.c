@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/24 13:38:15 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 14:37:37 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int		print_tab(char **str)
 
 	i = -1;
 	while (str[++i])
-		ft_printf("%s ", str[i]);
+		ft_printf_fd(STDOUT_FILENO, "%s ", str[i]);
 	if (str[0])
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 	return (1);
 }
 

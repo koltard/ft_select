@@ -6,30 +6,47 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/01/24 08:12:25 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/01/24 15:11:45 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_select
+
 CC = gcc 
+
 SRCS = main.c init_attrs.c init_terms.c stdin_read.c display.c selection.c \
 	   moove_vert.c moove_sides.c do_select.c
-LIBINC = ./libft/includes/
+
+# libft
+LIBINC = ./libft
+INC += -I $(LIBINC)/includes
+
+# ft_select
 INCLUDES = ./includes/ 
+INC += -I $(INCLUDES)
+
+# Path ft_select srcs
 PATHFS = ./src/
+
+# flags
 FLAGS = -Wall -Werror -Wextra
+
+# termcap linker
 TERMS = -ltermcap
+
+# libft.a
 LIB = ./libft/libft.a
+
 OBJ = $(addprefix $(PATHFS), $(SRCS:%.c=%.o))
 
 all : $(NAME)
 
 $(NAME) : makelib $(OBJ)
-		@$(CC) $(FLAGS) $(TERMS) -o $(NAME) $(OBJ) $(LIB) -I$(INCLUDES) -I$(LIBINC)
+		@$(CC) $(FLAGS) $(INC) $(TERMS) -o $(NAME) $(OBJ) $(LIB)
 		@echo "\033[35m***** done *****\033[0m"
 
 %.o:%.c $(INCLUDES)
-		@$(CC) $(FLAGS) -o $@ -c $< -I$(INCLUDES) -I$(LIBINC)
+		@$(CC) $(FLAGS) $(INC) -o $@ -c $<
 		@echo "\033[33m [$@] > compiled\033[0m"
 
 makelib :
