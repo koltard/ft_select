@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 08:44:42 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/22 10:42:48 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/24 15:25:36 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <string.h>
 # include <stdlib.h>
+# include <inttypes.h>
 # include <unistd.h>
 # include "ft_printf.h"
 
