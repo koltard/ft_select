@@ -42,7 +42,7 @@ int		handle_wchar_ret(wint_t c)
 {
 	if (c >= 0xD800 && c <= 0xDFFF)
 		return (-1);
-	else if (c >= 0 && (c <= 127 || (c <= 255 && MB_CUR_MAX == 1)))
+	else if (c <= 127 || (c <= 255 && MB_CUR_MAX == 1))
 		return (1);
 	else if (c >= 0x80 && c <= 0x7FF && MB_CUR_MAX >= 2)
 		return (2);
@@ -58,7 +58,7 @@ int		handle_wchar_ret_nocurmax(wint_t c)
 {
 	if (c >= 0xD800 && c <= 0xDFFF)
 		return (-1);
-	else if (c >= 0 && (c <= 127 || (c <= 255 && MB_CUR_MAX == 1)))
+	else if (c <= 127 || (c <= 255 && MB_CUR_MAX == 1))
 		return (1);
 	else if (c >= 0x80 && c <= 0x7FF)
 		return (2);
@@ -77,7 +77,7 @@ char	*ft_convert_wct(wint_t c)
 
 	len = handle_wchar_ret(c);
 	str = ft_strnew(len);
-	if (c >= 0x00 && (c <= 0x7F || (c <= 255 && MB_CUR_MAX == 1)))
+	if (c <= 0x7F || (c <= 255 && MB_CUR_MAX == 1))
 		str[len - 1] = (char)c;
 	else if (MB_CUR_MAX > 1 && c >= 0x80 && (str[len - 1] = (char)((0x3F & c)
 				| 0x80)))

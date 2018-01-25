@@ -12,7 +12,7 @@
 
 #include "ft_select.h"
 
-void		print_color(int check, int index, t_content **content)
+void		print_color(int index, t_content **content)
 {
 	t_content	*tmp;
 
@@ -26,7 +26,6 @@ void		print_color(int check, int index, t_content **content)
 	ft_putstr_fd(tmp->elem, STDIN_FILENO);
 	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
-	print_under(1, tmp->index, content);
 }
 
 void		print_under(int check, int index, t_content **content)
@@ -73,18 +72,14 @@ static int	escape_rmode(char *buf, t_content **content, t_content *tmp)
 
 static int	normal_rmode(char buf, t_content **content, t_content *tmp)
 {
-	int		i;
-
-	i = -1;
-	(void)content;
 	if (buf == 27)
 		return (-1);//escape (quit programme)
 	if (buf == 10)
 		return (-1);//enter (quit and print)
 	if (buf == 32)
-		;//selection
+		return (do_select(content, tmp->index));
 	if (buf == 8 || buf == 127)
-		;//delete elem (delete left key, ctrlH)
+		return (1);//delete elem (delete left key, ctrlH)
 	return (tmp->index);
 }
 

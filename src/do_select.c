@@ -12,26 +12,29 @@
 
 #include "ft_select.h"
 
-void	do_select(t_content *content)
+int 	do_select(t_content **content, int index)
 {
-	char	*tmp;
+	t_content	*tmp;
+    int         ret;
 
-	tmp = content->current[content->index];
-	if (!(content->select))
+	tmp = *content;
+    ret = 0;
+	while (tmp->index != index)
+		tmp = tmp->next;
+	if (!tmp->check)
 	{
-		content->select = (char **)malloc(sizeof(char *) * 2);
-		content->select[0] = ft_strdup(tmp);
-		content->select[1] = NULL;
-		put_color(content, 1);
-	}
-	else if (ft_tabchr(content->select, tmp))
-	{
-		content->select = delete_tab(content->select, tmp);
-		put_color(content, 0);
-	}
+		tmp->check = 1;
+        print_under(0, tmp->index, content);
+        print_color(index, content);
+        ret = go_down(content, tmp);
+        print_under(1, ret, content);
+        return (ret);
+    }
 	else
 	{
-		content->select = put_new_tab(content->select, tmp);
-		put_color(content, 1);
+		tmp->check = 0;
+		print_color(index, content);
+        print_under(1, index, content);
+        return (index);
 	}
 }

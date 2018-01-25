@@ -15,7 +15,7 @@ NAME = ft_select
 CC = gcc 
 
 SRCS = main.c init_attrs.c init_terms.c stdin_read.c display.c mount_list.c\
-	   moove.c 
+	   moove.c do_select.c
 
 # libft
 LIBINC = ./libft
@@ -54,7 +54,7 @@ OBJ = $(addprefix $(PATHFS), $(SRCS:%.c=%.o))
 all : $(NAME)
 
 $(NAME) : makelib $(OBJ)
-		@$(CC) $(FLAGS) $(INC) $(TERMS) -o $(NAME) $(OBJ) $(LIB)
+		@$(CC) $(FLAGS) $(INC) -o $(NAME) $(OBJ) $(LIB) $(TERMS)
 		@echo "\033[35m***** done *****\033[0m"
 
 %.o:%.c $(INCLUDES)

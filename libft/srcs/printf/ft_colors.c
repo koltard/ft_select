@@ -63,10 +63,8 @@ static char		*parse(char *str, char **tab, t_colors colors)
 	char		*tmp;
 	int			len_string;
 	int			i;
-	int			j;
 
 	i = -1;
-	j = -1;
 	ft_strclr(str);
 	while (tab[++i])
 	{

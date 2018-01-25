@@ -69,7 +69,7 @@ static char			get_next_char(const char **opt_addr, char *const av[])
 
 int					ft_getopt(int ac, char *const av[], const char *optstring)
 {
-	const static char	*opt_addr = NULL;
+	static const char	*opt_addr = NULL;
 	const char			*chr;
 
 	if (ft_init(ac, av))

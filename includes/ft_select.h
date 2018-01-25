@@ -16,8 +16,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <termios.h>
-# include <term.h>
 # include <fcntl.h>
+# include <term.h>
 # include <sys/ioctl.h>
 # include <sys/types.h>
 # include <sys/uio.h>
@@ -58,11 +58,15 @@ void					mount_list(t_content **content, char **av);
 /*
 ** stdin_read (underline and read)
 */
-void					print_color(int check, int index, t_content **content);
+void					print_color(int index, t_content **content);
 void					print_under(int check, int index, t_content **content);
 void					select_readtype(t_content **content);
 /*
 ** display
 */
 int						display(int co, int li, t_content **content);
+/*
+** select
+*/
+int	                    do_select(t_content **content, int index);
 #endif
