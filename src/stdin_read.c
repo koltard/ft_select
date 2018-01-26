@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:36:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 14:29:16 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 16:44:36 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ static t_content	*normal_rmode(char buf, t_content **content, t_content *tmp)
 	t_content	*elm;
 
 	if (buf == 27)
+	{
+		free_list(content);
 		return (NULL);
+	}
 	if (buf == 10)
 		return (NULL);
 	if (buf == 32)
@@ -113,8 +116,6 @@ int					select_readtype(t_content **content)
 			break ;
 		ft_bzero(&buf, 8);
 	}
-	if (buf[0] == 27)
-		free_list(content);
 	ft_bzero(&buf, 8);
 	return (0);
 }

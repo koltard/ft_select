@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 09:39:54 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 11:33:57 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 16:51:58 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,21 +91,23 @@ static int	find_last_col(t_content **content, int y)
 
 t_content	*go_left(t_content **content, t_content *current)
 {
-	t_content	*tmp;
-	int			golast;
+	t_content		*tmp;
+	int				golast;
+	struct winsize	screen;
 
 	tmp = *content;
+	ioctl(STDIN_FILENO, TIOCGWINSZ, &screen);
 	if (current->x != 0)
 	{
-		while (tmp->index + tgetnum("li") != current->index)
+		while (tmp->index + screen.ws_row != current->index)
 			tmp = tmp->next;
 	}
 	else
 	{
 		if (current->y != 0)
 			golast = find_last_col(content, current->y - 1);
-		else if (count_list(content) >= tgetnum("li"))
-			golast = find_last_col(content, tgetnum("li") - 1);
+		else if (count_list(content) >= screen.ws_row)
+			golast = find_last_col(content, screen.ws_row - 1);
 		else
 			golast = count_list(content) - 1;
 		while (tmp->index != golast)
