@@ -6,21 +6,11 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 06:59:25 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 08:04:49 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 11:28:51 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-
-t_content			*find_elm(t_content **list, int ind)
-{
-	t_content	*tmp;
-
-	tmp = *list;
-	while (tmp->index != ind)
-		tmp = tmp->next;
-	return (tmp);
-}
 
 void				free_list(t_content **list)
 {
@@ -35,7 +25,8 @@ void				free_list(t_content **list)
 		if (tmp == *list)
 		{
 			ft_strdel(&tmp->elem);
-			free(tmp);
+			free(*list);
+			*list = NULL;
 			break ;
 		}
 		tmp2 = *list;

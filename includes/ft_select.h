@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:20:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 10:34:54 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 11:28:00 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ t_content				*go_right(t_content **content, t_content *current);
 /*
 ** mount_list
 */
-t_content				*find_elm(t_content **list, int ind);
 int						count_list(t_content **list);
 void					mount_list(t_content **content, char **av);
 void					free_list(t_content **list);
