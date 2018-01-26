@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:20:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 08:08:22 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 10:34:54 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ int						init_termcaps(void);
 /*
 ** mooves
 */
-int						go_up(t_content **content, t_content *current);
-int						go_down(t_content **content, t_content *current);
-int						go_left(t_content **content, t_content *current);
-int						go_right(t_content **content, t_content *current);
+t_content				*go_up(t_content **content, t_content *current);
+t_content				*go_down(t_content **content, t_content *current);
+t_content				*go_left(t_content **content, t_content *current);
+t_content				*go_right(t_content **content, t_content *current);
 /*
 ** mount_list
 */
@@ -60,8 +60,8 @@ void					free_list(t_content **list);
 /*
 ** stdin_read (underline and read)
 */
-void					print_color(int index, t_content **content);
-void					print_under(int check, int index, t_content **content);
+void					print_color(t_content *tmp);
+void					print_under(int check, t_content *tmp);
 int						select_readtype(t_content **content);
 /*
 ** display
@@ -70,6 +70,6 @@ int						display(int co, int li, t_content **content);
 /*
 ** select
 */
-int	                    do_select(t_content **content, int index);
-int						delete_elm(t_content **content, int index);
+t_content				*do_select(t_content **content, t_content *tmp);
+t_content				*delete_elm(t_content **content, t_content *tmp);
 #endif

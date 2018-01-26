@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 09:39:54 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/25 12:48:21 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 10:17:38 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int			go_down(t_content **content, t_content *current)
+t_content	*go_down(t_content **content, t_content *current)
 {
 	t_content	*tmp;
 
@@ -25,10 +25,10 @@ int			go_down(t_content **content, t_content *current)
 			tmp = tmp->next;
 	}
 	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
-	return (tmp->index);
+	return (tmp);
 }
 
-int			go_up(t_content **content, t_content *current)
+t_content	*go_up(t_content **content, t_content *current)
 {
 	t_content	*tmp;
 
@@ -44,10 +44,10 @@ int			go_up(t_content **content, t_content *current)
 			tmp = tmp->next;
 	}
 	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
-	return (tmp->index);
+	return (tmp);
 }
 
-int			go_right(t_content **content, t_content *current)
+t_content	*go_right(t_content **content, t_content *current)
 {
 	t_content	*tmp;
 
@@ -72,7 +72,7 @@ int			go_right(t_content **content, t_content *current)
 				tmp = tmp->next;
 	}
 	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
-	return (tmp->index);
+	return (tmp);
 }
 
 static int	find_last_col(t_content **content, int y)
@@ -95,7 +95,7 @@ static int	find_last_col(t_content **content, int y)
 	return (tmp->index);
 }
 
-int			go_left(t_content **content, t_content *current)
+t_content	*go_left(t_content **content, t_content *current)
 {
 	t_content	*tmp;
 	int			golast;
@@ -118,5 +118,5 @@ int			go_left(t_content **content, t_content *current)
 			tmp = tmp->next;
 	}
 	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
-	return (tmp->index);
+	return (tmp);
 }

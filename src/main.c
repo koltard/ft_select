@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 09:00:49 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 10:42:40 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,31 +29,30 @@ static void	print_list(t_content **list)
 		}
 		tmp = tmp->next;
 	}
-	if (check == 1)
+	if (check)
 		write(1, "\n", 1);
 }
 
 static void	step_2(t_content *content)
 {
-	int		ret;
+	int		test;
+	char	buf;
 
 	tputs(tgetstr("vi", NULL), 0, &ft_inputchar);
-	if (!(display(tgetnum("co"), tgetnum("li"), &content)))
+	if (!(test = display(tgetnum("co"), tgetnum("li"), &content)))
 	{
 		tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
 		ft_putendl_fd("\033[31mSCREENSIZE TOO SMALL\033[0m", STDIN_FILENO);
 	}
-	else
-	{
-		tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
-		print_under(1, 0, &content);
-		ret = select_readtype(&content);
-		tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
-		if (ret == -1)
-			print_list(&content);
-		if (ret != -2)
-			free_list(&content);
-	}
+	while (!test && read(0, &buf, 1))
+		;
+	tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
+	print_under(1, content);
+	select_readtype(&content);
+	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
+	print_list(&content);
+	if (content)
+		free_list(&content);
 	tputs(tgetstr("ve", NULL), 0, &ft_inputchar);
 }
 
