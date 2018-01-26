@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 11:40:53 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/25 12:27:35 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 09:00:02 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	check_size(t_content **content, int co, int li)
 
 	tmp = *content;
 	total = 0;
-	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
 	while (tmp && (i = -1))
 	{
 		if (total > co)

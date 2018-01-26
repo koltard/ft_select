@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:20:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/25 12:54:37 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 08:08:22 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,16 @@ int						go_right(t_content **content, t_content *current);
 /*
 ** mount_list
 */
+t_content				*find_elm(t_content **list, int ind);
 int						count_list(t_content **list);
 void					mount_list(t_content **content, char **av);
+void					free_list(t_content **list);
 /*
 ** stdin_read (underline and read)
 */
 void					print_color(int index, t_content **content);
 void					print_under(int check, int index, t_content **content);
-void					select_readtype(t_content **content);
+int						select_readtype(t_content **content);
 /*
 ** display
 */
@@ -69,4 +71,5 @@ int						display(int co, int li, t_content **content);
 ** select
 */
 int	                    do_select(t_content **content, int index);
+int						delete_elm(t_content **content, int index);
 #endif

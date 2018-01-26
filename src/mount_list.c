@@ -6,11 +6,47 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 06:59:25 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/25 12:49:28 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 08:04:49 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+t_content			*find_elm(t_content **list, int ind)
+{
+	t_content	*tmp;
+
+	tmp = *list;
+	while (tmp->index != ind)
+		tmp = tmp->next;
+	return (tmp);
+}
+
+void				free_list(t_content **list)
+{
+	t_content	*tmp;
+	t_content	*tmp2;
+
+	tmp = *list;
+	while (tmp)
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		if (tmp == *list)
+		{
+			ft_strdel(&tmp->elem);
+			free(tmp);
+			break ;
+		}
+		tmp2 = *list;
+		while (tmp2 != tmp && tmp2->next != tmp)
+			tmp2 = tmp2->next;
+		tmp2->next = NULL;
+		ft_strdel(&tmp->elem);
+		free(tmp);
+		tmp = *list;
+	}
+}
 
 int					count_list(t_content **list)
 {
@@ -25,21 +61,6 @@ int					count_list(t_content **list)
 		i++;
 	}
 	return (i);
-}
-
-static void			push_back(t_content **list, t_content *new)
-{
-	t_content	*tmp;
-
-	if (!*list)
-		*list = new;
-	else
-	{
-		tmp = *list;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
 }
 
 static t_content	*new_content(char *str, int i)
@@ -60,12 +81,21 @@ void				mount_list(t_content **content, char **av)
 {
 	int			i;
 	t_content	*new;
+	t_content	*tmp;
 
 	i = -1;
 	while (av[++i])
 	{
 		new = NULL;
 		new = new_content(av[i], i);
-		push_back(content, new);
+		if (!*content)
+			*content = new;
+		else
+		{
+			tmp = *content;
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new;
+		}
 	}
 }

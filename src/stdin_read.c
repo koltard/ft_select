@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:36:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/25 12:54:48 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 08:42:47 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static int	escape_rmode(char *buf, t_content **content, t_content *tmp)
 {
 	int		ind;
 
-	ind = 0;
 	if (buf[1] == '[')
 	{
 		print_under(0, tmp->index, content);
@@ -63,7 +62,13 @@ static int	escape_rmode(char *buf, t_content **content, t_content *tmp)
 		if (buf[2] == 'D')
 			ind = go_left(content, tmp);
 		if (buf[2] == '3')
-			return (-1); // delete elem (delete key)
+		{
+			if ((ind = delete_elm(content, tmp->index)) == -1)
+				return (-1);
+			display(tgetnum("co"), tgetnum("li"), content);
+			tputs(tgoto(tgetstr("cm", NULL), find_elm(content, ind)->x,
+						find_elm(content, ind)->y), 0, &ft_inputchar);
+		}
 		print_under(1, ind, content);
 		return (ind);
 	}
@@ -72,18 +77,29 @@ static int	escape_rmode(char *buf, t_content **content, t_content *tmp)
 
 static int	normal_rmode(char buf, t_content **content, t_content *tmp)
 {
+	int			ind;
+
 	if (buf == 27)
-		return (-1);//escape (quit programme)
+		return (-2);
 	if (buf == 10)
-		return (-1);//enter (quit and print)
+		return (-1);
 	if (buf == 32)
 		return (do_select(content, tmp->index));
 	if (buf == 8 || buf == 127)
-		return (1);//delete elem (delete left key, ctrlH)
+	{
+		print_under(0, tmp->index, content);
+		if ((ind = delete_elm(content, tmp->index)) == -1)
+			return (-1);
+		display(tgetnum("co"), tgetnum("li"), content);
+		tputs(tgoto(tgetstr("cm", NULL), find_elm(content, ind)->x,
+					find_elm(content, ind)->y), 0, &ft_inputchar);
+		print_under(1, ind, content);
+		return (ind);
+	}
 	return (tmp->index);
 }
 
-void		select_readtype(t_content **content)
+int			select_readtype(t_content **content)
 {
 	int			ret;
 	int			pos;
@@ -91,23 +107,21 @@ void		select_readtype(t_content **content)
 	t_content	*tmp;
 
 	pos = 0;
-	while ((ret = read(STDIN_FILENO, buf, 3)))
+	while ((ret = read(STDIN_FILENO, buf, 8)))
 	{
-		tmp = *content;
-		while (tmp->index != pos)
-			tmp = tmp->next;
+		tmp = find_elm(content, pos);
 		if (buf[0] == 27 && buf[1])
 		{
-			if ((pos = escape_rmode(buf, content, tmp)) == -1)
+			if ((pos = escape_rmode(buf, content, tmp)) < 0)
 				break ;
 		}
-		else
-		{
-			if ((pos = normal_rmode(buf[0], content, tmp)) == -1)
-				break ;
-		}
+		else if ((pos = normal_rmode(buf[0], content, tmp)) < 0)
+			break ;
 		ft_bzero(&buf, 8);
 	}
+	if (pos == -2)
+		free_list(content);
 	ft_bzero(&buf, 8);
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
+	return (pos);
 }
