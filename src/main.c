@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 14:39:52 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 16:11:43 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void	step_2(t_content *content)
 {
 	tputs(tgetstr("vi", NULL), 0, &ft_inputchar);
 	g_out = &content;
-	g_check = 0;
 	signal(SIGWINCH, (void (*)(int))resize);
 	if (!(g_check = display(tgetnum("co"), tgetnum("li"), &content)))
 	{
