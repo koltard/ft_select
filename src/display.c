@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 11:40:53 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 10:12:32 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 14:42:48 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,16 @@ static int	check_size(t_content **content, int co, int li)
 	tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
 	while (tmp && (i = -1))
 	{
-		if (total > co)
-			return (0);
 		while (tmp && ++i < li - 1 && !(lencol = 0))
 		{
 			if (ft_strlen(tmp->elem) > lencol)
 				lencol = ft_strlen(tmp->elem);
-			tputs(tgoto(tgetstr("cm", NULL), total, 0), 0, &ft_inputchar);
 			tmp = tmp->next;
 		}
 		total += (lencol + 4);
 	}
+	if (total > co)
+		return (0);
 	return (1);
 }
 
@@ -62,7 +61,6 @@ int			display(int co, int li, t_content **content)
 	total = 0;
 	if (!check_size(content, co, li))
 		return (0);
-	tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
 	index = 0;
 	while (tmp && (i = -1))
 	{

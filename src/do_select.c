@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 13:49:38 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 10:34:40 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 11:35:39 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ t_content			*do_select(t_content **content, t_content *tmp)
 		print_under(0, tmp);
 		print_color(tmp);
 		tmp = go_down(content, tmp);
+		tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
 		print_under(1, tmp);
 		return (tmp);
 	}

@@ -6,11 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:36:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 10:45:48 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 14:29:16 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+extern int			g_check;
 
 void				print_color(t_content *tmp)
 {
@@ -57,8 +59,8 @@ static t_content	*escape_rmode(char *buf, t_content **content,
 			if (!(elm = delete_elm(content, tmp)))
 				return (NULL);
 			display(tgetnum("co"), tgetnum("li"), content);
-			tputs(tgoto(tgetstr("cm", NULL), elm->x, elm->y), 0, &ft_inputchar);
 		}
+		tputs(tgoto(tgetstr("cm", NULL), elm->x, elm->y), 0, &ft_inputchar);
 		print_under(1, elm);
 		return (elm);
 	}
@@ -95,8 +97,13 @@ int					select_readtype(t_content **content)
 	t_content	*tmp;
 
 	tmp = *content;
+	while (!g_check)
+		;
 	while ((ret = read(STDIN_FILENO, buf, 8)))
 	{
+		while (!g_check)
+			;
+		tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
 		if (buf[0] == 27 && buf[1])
 		{
 			if (!(tmp = escape_rmode(buf, content, tmp)))
@@ -109,6 +116,5 @@ int					select_readtype(t_content **content)
 	if (buf[0] == 27)
 		free_list(content);
 	ft_bzero(&buf, 8);
-	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	return (0);
 }

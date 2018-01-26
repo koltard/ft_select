@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:20:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 11:28:00 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 14:02:06 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <signal.h>
 # include "libft.h"
 
+
 typedef struct			s_content
 {
 	int					index;
@@ -33,6 +34,13 @@ typedef struct			s_content
 	char				*elem;
 	struct s_content	*next;
 }						t_content;
+
+int			g_check;
+t_content	**g_out;
+/*
+** signals
+*/
+void					resize(int x);
 /*
 ** init_attrs
 */

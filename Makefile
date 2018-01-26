@@ -6,7 +6,7 @@
 #    By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/18 14:27:11 by kyazdani          #+#    #+#              #
-#    Updated: 2018/01/25 11:40:07 by kyazdani         ###   ########.fr        #
+#    Updated: 2018/01/26 14:02:29 by kyazdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = ft_select
 CC = gcc 
 
 SRCS = main.c init_attrs.c init_terms.c stdin_read.c display.c mount_list.c\
-	   moove.c do_select.c
+	   moove.c do_select.c ft_signals.c
 
 # libft
 LIBINC = ./libft

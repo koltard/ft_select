@@ -6,11 +6,14 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 11:27:32 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 14:39:52 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+extern int			g_check;
+extern t_content	**g_out;
 
 static void	print_list(t_content **list)
 {
@@ -19,6 +22,7 @@ static void	print_list(t_content **list)
 
 	tmp = *list;
 	check = 0;
+	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
 	while (tmp)
 	{
 		if (tmp->check)
@@ -35,21 +39,21 @@ static void	print_list(t_content **list)
 
 static void	step_2(t_content *content)
 {
-	int		test;
-	char	buf;
-
 	tputs(tgetstr("vi", NULL), 0, &ft_inputchar);
-	if (!(test = display(tgetnum("co"), tgetnum("li"), &content)))
+	g_out = &content;
+	g_check = 0;
+	signal(SIGWINCH, (void (*)(int))resize);
+	if (!(g_check = display(tgetnum("co"), tgetnum("li"), &content)))
 	{
 		tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
 		ft_putendl_fd("\033[31mSCREENSIZE TOO SMALL\033[0m", STDIN_FILENO);
 	}
-	while (!test && read(0, &buf, 1))
+	while (!g_check)
 		;
 	tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
 	print_under(1, content);
 	select_readtype(&content);
-	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	print_list(&content);
 	if (content)
 		free_list(&content);

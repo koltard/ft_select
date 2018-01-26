@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 09:39:54 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 11:30:19 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/26 11:33:57 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_content	*go_down(t_content **content, t_content *current)
 		tmp = *content;
 	else
 		tmp = current->next;
-	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
 	return (tmp);
 }
 
@@ -40,7 +39,6 @@ t_content	*go_up(t_content **content, t_content *current)
 		while (tmp->next != current)
 			tmp = tmp->next;
 	}
-	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
 	return (tmp);
 }
 
@@ -68,7 +66,6 @@ t_content	*go_right(t_content **content, t_content *current)
 			while (tmp->y != current->y + 1)
 				tmp = tmp->next;
 	}
-	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
 	return (tmp);
 }
 
@@ -114,6 +111,5 @@ t_content	*go_left(t_content **content, t_content *current)
 		while (tmp->index != golast)
 			tmp = tmp->next;
 	}
-	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
 	return (tmp);
 }
