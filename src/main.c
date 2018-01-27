@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 16:11:43 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 12:09:12 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,12 @@ int			main(int ac, char **av)
 		return (0);
 	if (!init_termcaps())
 		return (0);
+	signal(SIGTSTP, (void (*)(int))q_process);
 	tcgetattr(STDIN_FILENO, &my_state);
 	ft_cfmakeraw(&my_state);
 	mount_list(&content, &av[1]);
 	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
+	signal(SIGCONT, (void(*)(int))c_process);
 	step_2(content);
 	ft_cfmakedefault(&my_state);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:20:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 14:02:06 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 11:32:26 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_content	**g_out;
 ** signals
 */
 void					resize(int x);
+void					c_process(int x);
+void					q_process(int x);
 /*
 ** init_attrs
 */
