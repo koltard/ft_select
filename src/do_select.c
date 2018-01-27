@@ -6,29 +6,30 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 13:49:38 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 11:35:39 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 17:28:11 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
+extern t_module	*g_module;
+
 static t_content	*st_2(t_content **content, t_content *tmp)
 {
 	t_content	*tmp2;
 
-	tmp2 = *content;
-	if (tmp == tmp2)
+	ft_strdel(&tmp->elem);
+	if (tmp == *content)
 	{
 		*content = tmp->next;
-		tmp2 = tmp2->next;
 		tmp->next = NULL;
-		ft_strdel(&tmp->elem);
 		free(tmp);
+		g_module->ptr = content;
 		return (*content);
 	}
+	tmp2 = *content;
 	while (tmp2->next != tmp)
 		tmp2 = tmp2->next;
-	ft_strdel(&tmp->elem);
 	tmp2->next = tmp->next;
 	tmp->next = NULL;
 	free(tmp);

@@ -6,13 +6,13 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:36:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 13:59:21 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 16:24:42 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-extern int			g_check;
+extern t_module		*g_module;
 
 void				print_color(t_content *tmp)
 {
@@ -25,7 +25,7 @@ void				print_color(t_content *tmp)
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 }
 
-int					print_under(int check, t_content *tmp)
+void				print_under(int check, t_content *tmp)
 {
 	if (tmp->check)
 		tputs(tgetstr("mr", NULL), 0, &ft_inputchar);
@@ -36,7 +36,6 @@ int					print_under(int check, t_content *tmp)
 	ft_putstr_fd(tmp->elem, STDIN_FILENO);
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
-	return (1);
 }
 
 static t_content	*escape_rmode(char *buf, t_content **content,
@@ -44,6 +43,7 @@ static t_content	*escape_rmode(char *buf, t_content **content,
 {
 	t_content	*elm;
 
+	elm = tmp;
 	if (buf[1] == '[')
 	{
 		print_under(0, tmp);
@@ -63,15 +63,17 @@ static t_content	*escape_rmode(char *buf, t_content **content,
 		}
 		tputs(tgoto(tgetstr("cm", NULL), elm->x, elm->y), 0, &ft_inputchar);
 		print_under(1, elm);
-		return (elm);
+		g_module->current = elm->index;
 	}
-	return (tmp);
+	return (elm);
 }
 
 static t_content	*normal_rmode(char buf, t_content **content, t_content *tmp)
 {
 	t_content	*elm;
 
+	elm = tmp;
+	print_under(0, tmp);
 	if (buf == 27)
 	{
 		free_list(content);
@@ -80,18 +82,17 @@ static t_content	*normal_rmode(char buf, t_content **content, t_content *tmp)
 	if (buf == 10)
 		return (NULL);
 	if (buf == 32)
-		return (do_select(content, tmp));
+		elm = do_select(content, tmp);
 	if (buf == 8 || buf == 127)
 	{
-		print_under(0, tmp);
 		if (!(elm = delete_elm(content, tmp)))
 			return (NULL);
 		display(content);
 		tputs(tgoto(tgetstr("cm", NULL), elm->x, elm->y), 0, &ft_inputchar);
-		print_under(1, elm);
-		return (elm);
 	}
-	return (tmp);
+	print_under(1, elm);
+	g_module->current = elm->index;
+	return (elm);
 }
 
 int					select_readtype(t_content **content)
@@ -101,11 +102,11 @@ int					select_readtype(t_content **content)
 	t_content	*tmp;
 
 	tmp = *content;
-	while (print_under(1, tmp) && (ret = read(STDIN_FILENO, buf, 8)))
+	print_under(1, tmp);
+	while ((ret = read(STDIN_FILENO, buf, 8)))
 	{
-		while (!g_check)
+		while (!g_module->checked)
 			;
-		tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
 		if (buf[0] == 27 && buf[1])
 		{
 			if (!(tmp = escape_rmode(buf, content, tmp)))

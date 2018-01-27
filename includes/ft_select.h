@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:20:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 14:00:16 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 15:31:07 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,17 @@ typedef struct			s_content
 	struct s_content	*next;
 }						t_content;
 
-int			g_check;
-t_content	**g_out;
+typedef struct			s_module
+{
+	int					checked;
+	int					current;
+	struct winsize		screen;
+	struct termios		cap_current;
+	struct termios		cap_init;
+	t_content			**ptr;
+}						t_module;
+
+t_module				*g_module;
 /*
 ** signals
 */
@@ -70,7 +79,7 @@ void					free_list(t_content **list);
 ** stdin_read (underline and read)
 */
 void					print_color(t_content *tmp);
-int						print_under(int check, t_content *tmp);
+void					print_under(int check, t_content *tmp);
 int						select_readtype(t_content **content);
 /*
 ** display

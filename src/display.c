@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/22 11:40:53 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 13:46:56 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 16:27:12 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	moove(int x, int y, t_content *elem)
 	tputs(tgoto(tgetstr("cm", NULL), x, y), 0, &ft_inputchar);
 	if (elem->check)
 		tputs(tgetstr("mr", NULL), 0, &ft_inputchar);
-	ft_printf_fd(STDIN_FILENO, "%s", elem->elem);
+	ft_putstr_fd(elem->elem, STDIN_FILENO);
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 }
 

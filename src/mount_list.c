@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 06:59:25 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 11:28:51 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 16:52:12 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void				free_list(t_content **list)
 			tmp = tmp->next;
 		if (tmp == *list)
 		{
-			ft_strdel(&tmp->elem);
-			free(*list);
+			ft_strdel(&(tmp->elem));
+			free(tmp);
 			*list = NULL;
-			break ;
+			return ;
 		}
 		tmp2 = *list;
-		while (tmp2 != tmp && tmp2->next != tmp)
+		while (tmp2->next != tmp)
 			tmp2 = tmp2->next;
 		tmp2->next = NULL;
 		ft_strdel(&tmp->elem);
