@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 13:07:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 17:41:09 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 17:45:06 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	c_process(int x)
 {
 	t_content	*tmp;
 
-	ft_cfmakeraw(&g_module->cap_current);
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_module->cap_current);
 	tputs(tgetstr("vi", NULL), 0, &ft_inputchar);
 	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
 	if (!(g_module->checked = display(g_module->ptr)))

@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 15:33:08 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 17:48:19 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,15 @@ int			main(int ac, char **av)
 		return (0);
 	mount_list(&content, &av[1]);
 	init_module(&content);
-	signal(SIGTSTP, (void (*)(int))q_process);
-	signal(SIGINT, (void (*)(int))quit_proper);
-	signal(SIGCONT, (void(*)(int))c_process);
+	if (!isatty(STDOUT_FILENO))
+		signal(SIGTSTP, SIG_IGN);
+	else
+	{
+		signal(SIGTSTP, (void (*)(int))q_process);
+		signal(SIGCONT, (void(*)(int))c_process);
+	}
 	signal(SIGWINCH, (void (*)(int))resize);
+	signal(SIGINT, (void (*)(int))quit_proper);
 	step_2(content);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_module->cap_init);
 	free(g_module);
