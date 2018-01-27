@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:20:56 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 11:32:26 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 14:00:16 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <sys/uio.h>
 # include <signal.h>
 # include "libft.h"
-
 
 typedef struct			s_content
 {
@@ -43,6 +42,7 @@ t_content	**g_out;
 void					resize(int x);
 void					c_process(int x);
 void					q_process(int x);
+void					quit_proper(int x);
 /*
 ** init_attrs
 */
@@ -70,12 +70,12 @@ void					free_list(t_content **list);
 ** stdin_read (underline and read)
 */
 void					print_color(t_content *tmp);
-void					print_under(int check, t_content *tmp);
+int						print_under(int check, t_content *tmp);
 int						select_readtype(t_content **content);
 /*
 ** display
 */
-int						display(int co, int li, t_content **content);
+int						display(t_content **content);
 /*
 ** select
 */

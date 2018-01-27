@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 12:09:12 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 13:59:24 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	step_2(t_content *content)
 	tputs(tgetstr("vi", NULL), 0, &ft_inputchar);
 	g_out = &content;
 	signal(SIGWINCH, (void (*)(int))resize);
-	if (!(g_check = display(tgetnum("co"), tgetnum("li"), &content)))
+	if (!(g_check = display(&content)))
 	{
 		tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
 		ft_putendl_fd("\033[31mSCREENSIZE TOO SMALL\033[0m", STDIN_FILENO);
@@ -50,7 +50,6 @@ static void	step_2(t_content *content)
 	while (!g_check)
 		;
 	tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
-	print_under(1, content);
 	select_readtype(&content);
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	print_list(&content);
@@ -70,6 +69,7 @@ int			main(int ac, char **av)
 	if (!init_termcaps())
 		return (0);
 	signal(SIGTSTP, (void (*)(int))q_process);
+	signal(SIGINT, (void (*)(int))quit_proper);
 	tcgetattr(STDIN_FILENO, &my_state);
 	ft_cfmakeraw(&my_state);
 	mount_list(&content, &av[1]);

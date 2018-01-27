@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:36:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/26 16:44:36 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 13:59:21 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void				print_color(t_content *tmp)
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 }
 
-void				print_under(int check, t_content *tmp)
+int					print_under(int check, t_content *tmp)
 {
 	if (tmp->check)
 		tputs(tgetstr("mr", NULL), 0, &ft_inputchar);
@@ -36,6 +36,7 @@ void				print_under(int check, t_content *tmp)
 	ft_putstr_fd(tmp->elem, STDIN_FILENO);
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
+	return (1);
 }
 
 static t_content	*escape_rmode(char *buf, t_content **content,
@@ -58,7 +59,7 @@ static t_content	*escape_rmode(char *buf, t_content **content,
 		{
 			if (!(elm = delete_elm(content, tmp)))
 				return (NULL);
-			display(tgetnum("co"), tgetnum("li"), content);
+			display(content);
 		}
 		tputs(tgoto(tgetstr("cm", NULL), elm->x, elm->y), 0, &ft_inputchar);
 		print_under(1, elm);
@@ -85,7 +86,7 @@ static t_content	*normal_rmode(char buf, t_content **content, t_content *tmp)
 		print_under(0, tmp);
 		if (!(elm = delete_elm(content, tmp)))
 			return (NULL);
-		display(tgetnum("co"), tgetnum("li"), content);
+		display(content);
 		tputs(tgoto(tgetstr("cm", NULL), elm->x, elm->y), 0, &ft_inputchar);
 		print_under(1, elm);
 		return (elm);
@@ -100,9 +101,7 @@ int					select_readtype(t_content **content)
 	t_content	*tmp;
 
 	tmp = *content;
-	while (!g_check)
-		;
-	while ((ret = read(STDIN_FILENO, buf, 8)))
+	while (print_under(1, tmp) && (ret = read(STDIN_FILENO, buf, 8)))
 	{
 		while (!g_check)
 			;
