@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 17:48:19 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 18:06:44 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static void	init_module(t_content **content)
 	g_module->checked = 0;
 	g_module->ptr = content;
 	ft_cfmakeraw(&(g_module->cap_current));
+	tputs(tgetstr("ti", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("is", NULL), 0, &ft_inputchar);
 	tputs(tgetstr("vi", NULL), 0, &ft_inputchar);
 }
 
@@ -63,6 +65,8 @@ static void	step_2(t_content *content)
 	print_list(&content);
 	if (content)
 		free_list(&content);
+	tputs(tgetstr("te", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("rs", NULL), 0, &ft_inputchar);
 }
 
 int			main(int ac, char **av)

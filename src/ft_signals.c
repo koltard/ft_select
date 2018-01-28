@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 13:07:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 17:45:06 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/27 18:12:05 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	c_process(int x)
 	t_content	*tmp;
 
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_module->cap_current);
-	tputs(tgetstr("vi", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("ti", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("is", NULL), 0, &ft_inputchar);
 	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("vi", NULL), 0, &ft_inputchar);
 	if (!(g_module->checked = display(g_module->ptr)))
 		ft_putendl_fd("\033[31mSCREENSIZE TOO SMALL\033[0m", STDERR_FILENO);
 	else
@@ -44,6 +46,8 @@ void	q_process(int x)
 	tmp[1] = '\0';
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("te", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("rs", NULL), 0, &ft_inputchar);
 	tputs(tgetstr("ve", NULL), 0, &ft_inputchar);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_module->cap_init);
 	signal(SIGTSTP, SIG_DFL);
@@ -55,6 +59,8 @@ void	quit_proper(int x)
 {
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("te", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("rs", NULL), 0, &ft_inputchar);
 	tputs(tgetstr("ve", NULL), 0, &ft_inputchar);
 	free_list(g_module->ptr);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_module->cap_init);
