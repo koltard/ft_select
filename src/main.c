@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/18 14:35:44 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 18:06:44 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/28 09:24:56 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	print_list(t_content **list)
 
 	tmp = *list;
 	check = 0;
-	tputs(tgetstr("cl", NULL), 0, &ft_inputchar);
 	while (tmp)
 	{
 		if (tmp->check)
@@ -62,11 +61,11 @@ static void	step_2(t_content *content)
 	tputs(tgetstr("ho", NULL), 0, &ft_inputchar);
 	select_readtype(&content);
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("te", NULL), 0, &ft_inputchar);
+	tputs(tgetstr("rs", NULL), 0, &ft_inputchar);
 	print_list(&content);
 	if (content)
 		free_list(&content);
-	tputs(tgetstr("te", NULL), 0, &ft_inputchar);
-	tputs(tgetstr("rs", NULL), 0, &ft_inputchar);
 }
 
 int			main(int ac, char **av)
