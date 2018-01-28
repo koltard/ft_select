@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:36:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 16:24:42 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/28 10:08:28 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,34 @@ extern t_module		*g_module;
 
 void				print_color(t_content *tmp)
 {
+	ft_putstr_fd("\033[40m", STDIN_FILENO);
 	if (tmp->check)
+	{
+		ft_putstr_fd("\033[30;41m", STDIN_FILENO);
 		tputs(tgetstr("mr", NULL), 0, &ft_inputchar);
+	}
 	else
 		tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	ft_putstr_fd(tmp->elem, STDIN_FILENO);
+	ft_putstr_fd("\033[40m", STDIN_FILENO);
 	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 }
 
 void				print_under(int check, t_content *tmp)
 {
+	ft_putstr_fd("\033[40m", STDIN_FILENO);
 	if (tmp->check)
+	{
+		ft_putstr_fd("\033[30;41m", STDIN_FILENO);
 		tputs(tgetstr("mr", NULL), 0, &ft_inputchar);
+	}
 	if (check)
 		tputs(tgetstr("us", NULL), 0, &ft_inputchar);
 	else
 		tputs(tgetstr("ue", NULL), 0, &ft_inputchar);
 	ft_putstr_fd(tmp->elem, STDIN_FILENO);
+	ft_putstr_fd("\033[40m", STDIN_FILENO);
 	tputs(tgetstr("me", NULL), 0, &ft_inputchar);
 	tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
 }
