@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/20 15:36:11 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/28 10:08:28 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/28 19:48:36 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ static t_content	*escape_rmode(char *buf, t_content **content,
 				return (NULL);
 			display(content);
 		}
+		g_module->current = elm->index;
 		tputs(tgoto(tgetstr("cm", NULL), elm->x, elm->y), 0, &ft_inputchar);
 		print_under(1, elm);
-		g_module->current = elm->index;
 	}
 	return (elm);
 }
@@ -100,8 +100,8 @@ static t_content	*normal_rmode(char buf, t_content **content, t_content *tmp)
 		display(content);
 		tputs(tgoto(tgetstr("cm", NULL), elm->x, elm->y), 0, &ft_inputchar);
 	}
-	print_under(1, elm);
 	g_module->current = elm->index;
+	print_under(1, elm);
 	return (elm);
 }
 

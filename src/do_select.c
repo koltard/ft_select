@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 13:49:38 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 17:28:11 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/28 19:32:16 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_content			*delete_elm(t_content **content, t_content *tmp)
 		else
 		{
 			tmp2 = *content;
-			while (tmp2->next != tmp)
+			while (tmp2 && tmp2->next != tmp)
 				tmp2 = tmp2->next;
 			free(tmp);
 			tmp2->next = NULL;

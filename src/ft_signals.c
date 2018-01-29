@@ -6,7 +6,7 @@
 /*   By: kyazdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/26 13:07:06 by kyazdani          #+#    #+#             */
-/*   Updated: 2018/01/27 18:12:05 by kyazdani         ###   ########.fr       */
+/*   Updated: 2018/01/29 08:13:12 by kyazdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	c_process(int x)
 {
 	t_content	*tmp;
 
+	tmp = *(g_module->ptr);
+	print_under(0, tmp);
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &g_module->cap_current);
 	tputs(tgetstr("ti", NULL), 0, &ft_inputchar);
 	tputs(tgetstr("is", NULL), 0, &ft_inputchar);
@@ -27,11 +29,13 @@ void	c_process(int x)
 		ft_putendl_fd("\033[31mSCREENSIZE TOO SMALL\033[0m", STDERR_FILENO);
 	else
 	{
-		tmp = *(g_module->ptr);
-		while (tmp->index != g_module->current)
+		while (tmp && tmp->index != g_module->current)
 			tmp = tmp->next;
-		tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
-		print_under(1, tmp);
+		if (tmp)
+		{
+			tputs(tgoto(tgetstr("cm", NULL), tmp->x, tmp->y), 0, &ft_inputchar);
+			print_under(1, tmp);
+		}
 	}
 	signal(SIGCONT, (void (*)(int))c_process);
 	signal(SIGTSTP, (void (*)(int))q_process);
