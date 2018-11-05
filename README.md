@@ -1,4 +1,7 @@
 # ft_select
-ft_select is a shell program displaying arguments on standard input, and gives you the ability to select which argument you want. The result is displayed on standard output. A classic use of this program is "program $(ft_select [args])" 
+ft_select is a command line tool displaying arguments on standard input, which ones you can select. The result is sent to standard output. A classic use of this program is "your_program_that_takes_arguments $(ft_select [args])" 
 
-Use arrows to move, space to select/unselect argument, backspace to remove one from the list and enter when you're done.
+to move: arrows
+to select: space
+to delete: backspace
+to finish: enter
